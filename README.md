@@ -14,3 +14,11 @@ Currently, it does the following:
 
 # Dependencies
 This extension has a hard dependency on GoogleUniversalAnalytics.
+
+## Changelog ##
+
+### 1.0.1
+(bugfix) use hook `MakeGlobalVariablesScript` instead of `ResourceLoaderGetConfigVars`
+
+### 1.0.0
+Initial release - code split off from GoogleUniversalAnalytics.

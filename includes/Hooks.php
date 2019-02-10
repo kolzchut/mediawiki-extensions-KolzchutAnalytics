@@ -28,16 +28,19 @@ class Hooks {
 	];
 
 	/**
-	 * ResourceLoaderGetConfigVars hook handler
+	 * MakeGlobalVariablesScript hook handler.
 	 *
-	 * @param array &$vars
+	 * Variables added:
+	 * * `wgVisibleCategories' - the non-hidden categories on the page
+	 *
+	 * @param array $vars
+	 * @param OutputPage $out
 	 */
-	public static function onResourceLoaderGetConfigVars( &$vars ) {
+	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
 		if ( is_array( self::$normalCats ) ) {
 			$vars[ 'wgVisibleCategories' ] = self::$normalCats;
 		}
 	}
-
 	/**
 	 * OutputPageMakeCategoryLinks hook handler
 	 *

@@ -1,6 +1,6 @@
 {
 	"name": "KolzchutAnalytics",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": [
 		"Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])"
 	],
@@ -19,7 +19,7 @@
 	"Hooks": {
 		"GoogleAnalytics::SendPageView": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onBeforeGoogleAnalyticsSendPageView",
 		"OutputPageMakeCategoryLinks": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onOutputPageMakeCategoryLinks",
-		"ResourceLoaderGetConfigVars": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onResourceLoaderGetConfigVars"
+		"MakeGlobalVariablesScript": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onMakeGlobalVariablesScript"
 	},
 	"MessagesDirs": {
 		"KolzchutAnalytics": [
