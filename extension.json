@@ -1,0 +1,30 @@
+{
+	"name": "KolzchutAnalytics",
+	"version": "1.0.0",
+	"author": [
+		"Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])"
+	],
+	"url": "https://github.com/kolzchut/mediawiki-extensions-KolzchutAnalytics",
+	"descriptionmsg": "kolzchutanalytics-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "other",
+	"requires": {
+		"extensions": {
+			"GoogleUniversalAnalytics": ">= 3.6.2"
+		}
+	},
+	"AutoloadClasses": {
+		"MediaWiki\\Extension\\KolzchutAnalytics\\Hooks": "includes/Hooks.php"
+	},
+	"Hooks": {
+		"GoogleAnalytics::SendPageView": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onBeforeGoogleAnalyticsSendPageView",
+		"OutputPageMakeCategoryLinks": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onOutputPageMakeCategoryLinks",
+		"ResourceLoaderGetConfigVars": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onResourceLoaderGetConfigVars"
+	},
+	"MessagesDirs": {
+		"KolzchutAnalytics": [
+			"i18n"
+		]
+	},
+	"manifest_version": 2
+}
