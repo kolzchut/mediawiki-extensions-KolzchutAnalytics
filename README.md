@@ -12,10 +12,10 @@ Currently, it does the following:
 | Visible Categories   | Add wgVisibleCategories to mw.config
 
 
-# Dependencies
+## Dependencies
 This extension has a hard dependency on GoogleUniversalAnalytics.
 
-## Changelog ##
+## Changelog
 
 ### 1.0.1
 (bugfix) use hook `MakeGlobalVariablesScript` instead of `ResourceLoaderGetConfigVars`
