@@ -1,25 +1,30 @@
 {
 	"name": "KolzchutAnalytics",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"author": [
-		"Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])"
+		"Dror S. [FFS] ([https://www.kolzchut.org.il Kol-Zchut])"
 	],
 	"url": "https://github.com/kolzchut/mediawiki-extensions-KolzchutAnalytics",
 	"descriptionmsg": "kolzchutanalytics-desc",
-	"license-name": "GPL-2.0-or-later",
+	"license-name": "GPL-2.0-or-later AND MIT",
 	"type": "other",
 	"requires": {
 		"extensions": {
-			"GoogleUniversalAnalytics": ">= 3.6.2"
+			"GoogleTagManager": ">= 0.6.0"
 		}
 	},
 	"AutoloadClasses": {
 		"MediaWiki\\Extension\\KolzchutAnalytics\\Hooks": "includes/Hooks.php"
 	},
 	"Hooks": {
-		"GoogleAnalytics::SendPageView": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onBeforeGoogleAnalyticsSendPageView",
 		"OutputPageMakeCategoryLinks": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onOutputPageMakeCategoryLinks",
-		"MakeGlobalVariablesScript": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onMakeGlobalVariablesScript"
+		"MakeGlobalVariablesScript": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onMakeGlobalVariablesScript",
+		"DataLayerSetup": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks"
+		}
 	},
 	"MessagesDirs": {
 		"KolzchutAnalytics": [

@@ -18,20 +18,22 @@
  */
 namespace MediaWiki\Extension\KolzchutAnalytics;
 
+use ExtensionRegistry;
+use MediaWiki\Extension\ArticleContentArea\ArticleContentArea;
+use MediaWiki\Extension\ArticleType\ArticleType;
+use MediaWiki\Extension\GoogleTagManager\Hooks\DataLayerSetupHook;
 use OutputPage;
-use Title;
+use Skin;
 
-class Hooks {
+class Hooks
+	implements DataLayerSetupHook {
 	private static $normalCats = [];
-	private static $ignoredPageGroupingNamespaces = [
-		NS_CATEGORY, NS_FILE, NS_SPECIAL, NS_MEDIAWIKI
-	];
 
 	/**
 	 * MakeGlobalVariablesScript hook handler.
 	 *
 	 * Variables added:
-	 * * `wgVisibleCategories' - the non-hidden categories on the page
+	 * * `wgVisibleCategories` - the non-hidden categories on the page
 	 *
 	 * @param array $vars
 	 * @param OutputPage $out
@@ -56,24 +58,17 @@ class Hooks {
 	}
 
 	/**
-	 * This hook is part of Extension:GoogleUniversalAnalytics.
-	 *
-	 * @param OutputPage &$out
-	 * @param string &$jsCode JavaScript code for Google Universal Analytics snippet
+	 * @inheritDoc
 	 */
-	public static function onBeforeGoogleAnalyticsSendPageView( OutputPage &$out, &$jsCode ) {
-		$title = $out->getTitle();
-		$ns = $title->getNamespace();
-		if ( isset( $ns ) && in_array( $ns, self::$ignoredPageGroupingNamespaces ) ) {
-			$jsCode .= PHP_EOL . "/* Namespace excluded from page grouping */" . PHP_EOL;
-		} else {
-			$normalCats = self::$normalCats;
-			if ( count( $normalCats ) > 1 ) {
-				$normalCats[0] = Title::makeTitleSafe( NS_CATEGORY, $normalCats[0] )->getText();
-				$normalCats[1] = Title::makeTitleSafe( NS_CATEGORY, $normalCats[1] )->getText();
-				$jsCode .= "ga('set', 'contentGroup2', '{$normalCats[1]}');" . PHP_EOL
-						   . "ga('set', 'contentGroup3', '{$normalCats[0]}');" . PHP_EOL;
-			};
-		};
+	public function onDataLayerSetup(OutputPage $output, Skin $skin, array &$dataLayer) {
+		$title = $output->getTitle();
+		$extensionRegistry = ExtensionRegistry::getInstance();
+
+		if ( $extensionRegistry->isLoaded( 'ArticleContentArea' ) ) {
+			$dataLayer[ 'articleContentArea' ] = ArticleContentArea::getArticleContentArea( $title );
+		}
+		if ( $extensionRegistry->isLoaded( 'ArticleType' ) ) {
+			$dataLayer[ 'articleType' ] = ArticleType::getArticleType( $title );
+		}
 	}
 }
