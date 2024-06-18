@@ -27,7 +27,7 @@ use Skin;
 
 class Hooks
 	implements DataLayerSetupHook {
-	private static $normalCats = [];
+	private static array $normalCats = [];
 
 	/**
 	 * MakeGlobalVariablesScript hook handler.
@@ -35,7 +35,7 @@ class Hooks
 	 * Variables added:
 	 * * `wgVisibleCategories` - the non-hidden categories on the page
 	 *
-	 * @param array $vars
+	 * @param array &$vars
 	 * @param OutputPage $out
 	 */
 	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
@@ -43,6 +43,7 @@ class Hooks
 			$vars[ 'wgVisibleCategories' ] = self::$normalCats;
 		}
 	}
+
 	/**
 	 * OutputPageMakeCategoryLinks hook handler
 	 *
@@ -60,7 +61,7 @@ class Hooks
 	/**
 	 * @inheritDoc
 	 */
-	public function onDataLayerSetup(OutputPage $output, Skin $skin, array &$dataLayer) {
+	public function onDataLayerSetup( OutputPage $output, Skin $skin, array &$dataLayer ) {
 		$title = $output->getTitle();
 		$extensionRegistry = ExtensionRegistry::getInstance();
 
