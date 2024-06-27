@@ -69,7 +69,11 @@ class Hooks
 			$dataLayer[ 'articleContentArea' ] = ArticleContentArea::getArticleContentArea( $title );
 		}
 		if ( $extensionRegistry->isLoaded( 'ArticleType' ) ) {
-			$dataLayer[ 'articleType' ] = ArticleType::getArticleType( $title );
+			$articleType = ArticleType::getArticleType( $title );
+			$dataLayer[ 'articleType' ] = $articleType;
+			$dataLayer[ 'articleTypeInHebrewPlural' ] = ArticleType::getReadableArticleTypeFromCode(
+				$articleType, 10, [ 'language' => 'he' ]
+			);
 		}
 	}
 }
