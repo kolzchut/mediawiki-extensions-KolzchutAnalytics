@@ -38,7 +38,7 @@ class Hooks
 	 * @param array &$vars
 	 * @param OutputPage $out
 	 */
-	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
+	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ): void {
 		if ( is_array( self::$normalCats ) ) {
 			$vars[ 'wgVisibleCategories' ] = self::$normalCats;
 		}
@@ -54,14 +54,14 @@ class Hooks
 	 * @param array $categories
 	 * @param array &$links
 	 */
-	public static function onOutputPageMakeCategoryLinks( OutputPage &$out, $categories, &$links ) {
+	public static function onOutputPageMakeCategoryLinks( OutputPage &$out, $categories, &$links ): void {
 		self::$normalCats = array_keys( $categories, 'normal' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function onDataLayerSetup( OutputPage $output, Skin $skin, array &$dataLayer ) {
+	public function onDataLayerSetup( OutputPage $output, Skin $skin, array &$dataLayer ): void {
 		$title = $output->getTitle();
 		$extensionRegistry = ExtensionRegistry::getInstance();
 
