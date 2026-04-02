@@ -16,6 +16,14 @@ This extension has a hard dependency on [extension:GoogleTagManager](https://git
 
 ## Changelog
 
+### 1.1.1
+- Modernize to use AutoloadNamespaces, instance-based hook handlers,
+  and namespaced class imports
+- Implement hook interfaces (MakeGlobalVariablesScriptHook)
+- Replace deprecated OutputPageMakeCategoryLinks hook with
+  OutputPage::getCategories('normal')
+- Update dev dependencies to current versions
+
 ### 1.1.0
 - Remove the dependency and usage of hook GoogleAnalytics::SendPageView
 - Hook DataLayerSetup from extension:GoogleTagManager and use it to push

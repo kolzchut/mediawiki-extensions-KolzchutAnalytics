@@ -1,6 +1,6 @@
 {
 	"name": "KolzchutAnalytics",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"author": [
 		"Dror S. [FFS] ([https://www.kolzchut.org.il Kol-Zchut])"
 	],
@@ -13,18 +13,17 @@
 			"GoogleTagManager": ">= 0.6.0"
 		}
 	},
-	"AutoloadClasses": {
-		"MediaWiki\\Extension\\KolzchutAnalytics\\Hooks": "includes/Hooks.php"
-	},
-	"Hooks": {
-		"OutputPageMakeCategoryLinks": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onOutputPageMakeCategoryLinks",
-		"MakeGlobalVariablesScript": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks::onMakeGlobalVariablesScript",
-		"DataLayerSetup": "main"
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\KolzchutAnalytics\\": "includes/"
 	},
 	"HookHandlers": {
 		"main": {
 			"class": "MediaWiki\\Extension\\KolzchutAnalytics\\Hooks"
 		}
+	},
+	"Hooks": {
+		"MakeGlobalVariablesScript": "main",
+		"DataLayerSetup": "main"
 	},
 	"MessagesDirs": {
 		"KolzchutAnalytics": [

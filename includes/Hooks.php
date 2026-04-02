@@ -18,16 +18,18 @@
  */
 namespace MediaWiki\Extension\KolzchutAnalytics;
 
-use ExtensionRegistry;
 use MediaWiki\Extension\ArticleContentArea\ArticleContentArea;
 use MediaWiki\Extension\ArticleType\ArticleType;
 use MediaWiki\Extension\GoogleTagManager\Hooks\DataLayerSetupHook;
-use OutputPage;
+use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Registration\ExtensionRegistry;
 use Skin;
 
-class Hooks
-	implements DataLayerSetupHook {
-	private static array $normalCats = [];
+class Hooks implements
+	DataLayerSetupHook,
+	MakeGlobalVariablesScriptHook
+{
 
 	/**
 	 * MakeGlobalVariablesScript hook handler.
@@ -38,24 +40,8 @@ class Hooks
 	 * @param array &$vars
 	 * @param OutputPage $out
 	 */
-	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ): void {
-		if ( is_array( self::$normalCats ) ) {
-			$vars[ 'wgVisibleCategories' ] = self::$normalCats;
-		}
-	}
-
-	/**
-	 * OutputPageMakeCategoryLinks hook handler
-	 *
-	 * We don't want to log hidden categories...
-	 * this is the only place where that distinction is available, so we get it here
-	 *
-	 * @param OutputPage &$out
-	 * @param array $categories
-	 * @param array &$links
-	 */
-	public static function onOutputPageMakeCategoryLinks( OutputPage &$out, $categories, &$links ): void {
-		self::$normalCats = array_keys( $categories, 'normal' );
+	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
+		$vars['wgVisibleCategories'] = $out->getCategories( 'normal' );
 	}
 
 	/**
@@ -66,12 +52,12 @@ class Hooks
 		$extensionRegistry = ExtensionRegistry::getInstance();
 
 		if ( $extensionRegistry->isLoaded( 'ArticleContentArea' ) ) {
-			$dataLayer[ 'articleContentArea' ] = ArticleContentArea::getArticleContentArea( $title );
+			$dataLayer['articleContentArea'] = ArticleContentArea::getArticleContentArea( $title );
 		}
 		if ( $extensionRegistry->isLoaded( 'ArticleType' ) ) {
 			$articleType = ArticleType::getArticleType( $title );
-			$dataLayer[ 'articleType' ] = $articleType;
-			$dataLayer[ 'articleTypeInHebrewPlural' ] = ArticleType::getReadableArticleTypeFromCode(
+			$dataLayer['articleType'] = $articleType;
+			$dataLayer['articleTypeInHebrewPlural'] = ArticleType::getReadableArticleTypeFromCode(
 				$articleType, 10, [ 'language' => 'he' ]
 			);
 		}
